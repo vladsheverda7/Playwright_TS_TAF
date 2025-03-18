@@ -112,3 +112,23 @@ test.describe('Lists and dropdowns', () => {
         }
     });
 });
+
+test.describe('Tooltips', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('http://localhost:4200/');
+        await page.getByText('Modal & Overlays').click();
+        await page.getByText('Tooltip').click();
+    });
+
+    test('tooltip', async ({ page }) => {
+        const tooltipCard = page.locator('nb-card').filter({ hasText: 'Tooltip Placements' });
+
+        await tooltipCard.getByRole('button', { name: 'Top' }).hover();
+
+        page.getByRole('tooltip'); // if you have a role tooltip created
+
+        const tooltipMessage = await page.locator('nb-tooltip').textContent();
+
+        expect(tooltipMessage).toEqual('This is a tooltip');
+    });
+});
