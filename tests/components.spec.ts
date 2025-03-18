@@ -46,3 +46,32 @@ test.describe('Form Layout page', () => {
         await expect(radioButtonOption2).toBeChecked();
     });
 });
+
+test.describe('Checkboxes', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.getByText('Modal & Overlays').click();
+        await page.getByText('Toastr').click();
+    });
+
+    test('Checkbox', async ({ page }) => {
+        const hideOnClickCheckbox = page.getByRole('checkbox', { name: 'Hide on click' });
+        await hideOnClickCheckbox.uncheck({ force: true });
+
+        const preventArisingOfDuplicateToastCheckbox = page.getByRole('checkbox', { name: 'Prevent arising of duplicate toast' });
+        await preventArisingOfDuplicateToastCheckbox.check({ force: true });
+
+        await expect(preventArisingOfDuplicateToastCheckbox).toBeChecked();
+
+        const checkboxList = page.getByRole('checkbox');
+
+        for (const checkbox of await checkboxList.all()) {
+            await checkbox.check({ force: true });
+            expect(await checkbox.isChecked()).toBeTruthy();
+        }
+
+        for (const checkbox of await checkboxList.all()) {
+            await checkbox.uncheck({ force: true });
+            expect(await checkbox.isChecked()).toBeFalsy();
+        }
+    });
+});
