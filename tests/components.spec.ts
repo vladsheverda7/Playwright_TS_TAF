@@ -132,3 +132,38 @@ test.describe('Tooltips', () => {
         expect(tooltipMessage).toEqual('This is a tooltip');
     });
 });
+
+test.describe('Dialog boxes', () => {
+    test('Common dialog box', async ({ page }) => {
+        await page.goto('http://localhost:4200/');
+        await page.locator('a[title="Modal & Overlays"]').click();
+        await page.getByText('Dialog').click();
+
+        await page.locator('nb-card').filter({ hasText: 'Open Dialog' }).getByRole('button', { name: 'Open Dialog with component' }).click();
+
+        const dialog = page.locator('nb-dialog-container');
+
+        await expect.soft(dialog).toBeVisible();
+
+        await page.locator('nb-dialog-container').getByRole('button', { name: 'Dismiss Dialog' }).click();
+
+        const isVisible: boolean = await dialog.isVisible();
+
+        expect(isVisible).toBeFalsy();
+    });
+
+    test('Browser dialog box', async ({ page }) => {
+        await page.goto('http://localhost:4200/');
+        await page.getByText('Tables & Data').click();
+        await page.getByText('Smart Table').click();
+
+        page.on('dialog', dialog => {
+            expect(dialog.message()).toEqual('Are you sure you want to delete?');
+            dialog.accept();
+        });
+
+        await page.getByRole('table').locator('tr', { hasText: 'mdo@gmail.com' }).locator('.nb-trash').click();
+
+        await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com');
+    });
+});
