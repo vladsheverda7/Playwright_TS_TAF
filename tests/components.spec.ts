@@ -226,3 +226,49 @@ test.describe('Web tables', () => {
         }
     });
 });
+
+test.describe('Datapicker', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('http://localhost:4200/');
+        await page.getByText('Forms').click();
+        await page.getByText('Datepicker').click();
+    });
+
+    test('Datapicker for a particular date', async ({ page }) => {
+        const calendarInputField = page.getByPlaceholder('Form Picker');
+
+        await calendarInputField.click();
+        await page.waitForTimeout(500);
+        await page.locator('[class="day-cell ng-star-inserted"]').getByText('20', { exact: true }).click();
+
+        await expect(calendarInputField).toHaveValue('Mar 20, 2025');
+    });
+
+    test('Datapicker for tommorow', async ({ page }) => {
+        const calendarInputField = page.getByPlaceholder('Form Picker');
+        let date = new Date();
+        // date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate() + 14);
+        const expectedDay = date.getDate().toString();
+        const expectMonthShort = date.toLocaleString('EN-US', { month: 'short' });
+        const fullMonthValue = date.toLocaleString('EN-US', { month: 'long' });
+        const expectedYear = date.getFullYear();
+
+        const dateToAssert = `${expectMonthShort} ${expectedDay}, ${expectedYear}`;
+
+        await calendarInputField.click();
+
+        await page.waitForTimeout(500);
+
+        let calendarMonthAndYear: string | null = await page.locator('nb-calendar-view-mode').textContent();
+        const expectedMonthAndYear = ` ${fullMonthValue} ${expectedYear} `;
+
+        while (!calendarMonthAndYear?.includes(expectedMonthAndYear)) {
+            await page.locator('nb-calendar-pageable-navigation [data-name="chevron-right"]').click();
+            calendarMonthAndYear = (await page.locator('nb-calendar-view-mode').textContent()) || '';
+        }
+        await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDay, { exact: true }).click();
+
+        await expect(calendarInputField).toHaveValue(dateToAssert);
+    });
+});
