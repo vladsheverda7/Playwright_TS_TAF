@@ -1,35 +1,45 @@
-import { Page } from 'playwright';
+import { Locator, Page } from 'playwright';
 
 export class NavigationPage {
     readonly page: Page;
+    readonly formLayoutsMenuItem: Locator;
+    readonly datePickerMenuItem: Locator;
+    readonly smartTableMenuItem: Locator;
+    readonly toastrMenuItem: Locator;
+    readonly tooltipMenuItem: Locator;
 
     constructor(page: Page) {
         this.page = page;
+        this.formLayoutsMenuItem = this.page.locator('[title="Form Layouts"]');
+        this.datePickerMenuItem = this.page.locator('[title="Datepicker"]');
+        this.smartTableMenuItem = this.page.locator('[title="Smart Table"]');
+        this.toastrMenuItem = this.page.locator('[title="Toastr"]');
+        this.tooltipMenuItem = this.page.locator('[title="Tooltip"]');
     }
 
     async openFormLayoutsPage() {
         await this.selectGroupMenuItem('Forms');
-        await this.page.locator('[title="Form Layouts"]').click();
+        await this.formLayoutsMenuItem.click();
     }
 
     async openDatePickerPage() {
         await this.selectGroupMenuItem('Forms');
-        await this.page.locator('[title="Datepicker"]').click();
+        await this.datePickerMenuItem.click();
     }
 
     async openSmartTablePage() {
         await this.selectGroupMenuItem('Tables & Data');
-        await this.page.locator('[title="Smart Table"]').click();
+        await this.smartTableMenuItem.click();
     }
 
     async openToastsPage() {
         await this.selectGroupMenuItem('Modal & Overlays');
-        await this.page.locator('[title="Toastr"]').click();
+        await this.toastrMenuItem.click();
     }
 
     async openTooltipPge() {
         await this.selectGroupMenuItem('Modal & Overlays');
-        await this.page.locator('[title="Tooltip"]').click();
+        await this.tooltipMenuItem.click();
     }
 
     // used to check whether group menu is expanded
