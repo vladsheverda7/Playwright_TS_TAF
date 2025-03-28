@@ -1,7 +1,7 @@
 import { Locator, Page } from 'playwright';
+import { BasePage } from './basePage';
 
-export class NavigationPage {
-    readonly page: Page;
+export class NavigationPage extends BasePage {
     readonly formLayoutsMenuItem: Locator;
     readonly datePickerMenuItem: Locator;
     readonly smartTableMenuItem: Locator;
@@ -9,17 +9,18 @@ export class NavigationPage {
     readonly tooltipMenuItem: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.formLayoutsMenuItem = this.page.locator('[title="Form Layouts"]');
-        this.datePickerMenuItem = this.page.locator('[title="Datepicker"]');
-        this.smartTableMenuItem = this.page.locator('[title="Smart Table"]');
-        this.toastrMenuItem = this.page.locator('[title="Toastr"]');
-        this.tooltipMenuItem = this.page.locator('[title="Tooltip"]');
+        super(page);
+        this.formLayoutsMenuItem = page.locator('[title="Form Layouts"]');
+        this.datePickerMenuItem = page.locator('[title="Datepicker"]');
+        this.smartTableMenuItem = page.locator('[title="Smart Table"]');
+        this.toastrMenuItem = page.locator('[title="Toastr"]');
+        this.tooltipMenuItem = page.locator('[title="Tooltip"]');
     }
 
     async openFormLayoutsPage() {
         await this.selectGroupMenuItem('Forms');
         await this.formLayoutsMenuItem.click();
+        await this.waitForNumberOfSeconds(2);
     }
 
     async openDatePickerPage() {

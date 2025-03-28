@@ -1,10 +1,9 @@
 import { Page } from 'playwright';
+import { BasePage } from './basePage';
 
-export class DataPickerPage {
-    private readonly page: Page;
-
+export class DataPickerPage extends BasePage {
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async selectCommomDatePickerDateFromToday(numberOfDaysFromToday: number) {

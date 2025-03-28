@@ -1,10 +1,9 @@
 import { Page } from 'playwright';
+import { BasePage } from './basePage';
 
-export class FormLayoutPage {
-    private readonly page: Page;
-
+export class FormLayoutPage extends BasePage {
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async submitUsingTheGridFormWithCredsAndSelectOption(email: string, password: string, optionText: string) {
