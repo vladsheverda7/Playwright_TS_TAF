@@ -1,11 +1,13 @@
 import { expect, Locator, test } from '@playwright/test';
 
+test.describe.configure({ mode: 'parallel' });
+
 test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:4200/');
 });
 
-test.describe.only('Form Layout page', () => {
-    test.describe.configure({ retries: 2 });
+test.describe.parallel('Form Layout page', () => {
+    //test.describe.configure({ retries: 2 });
 
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click();
@@ -21,15 +23,15 @@ test.describe.only('Form Layout page', () => {
 
         await emailField.fill('test@gmail.com');
         await emailField.clear();
-        await emailField.pressSequentially('test2@gmail.com', { delay: 500 });
+        await emailField.pressSequentially('test2@gmail.com');
 
         // generic assertion
 
         const inputValue: string | null = await emailField.inputValue();
-        expect(inputValue).toEqual('test2@gmail.com1');
+        expect(inputValue).toEqual('test2@gmail.com');
 
         // locator asserion
-        await expect(emailField).toHaveValue('test2@gmai1.com');
+        await expect(emailField).toHaveValue('test2@gmail.com');
     });
 
     test('radio buttons', async ({ page }) => {

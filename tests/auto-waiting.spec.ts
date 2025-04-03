@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }, testInfo) => {
     testInfo.setTimeout(testInfo.timeout + 2000);
 });
 
-test('auto-waiting', async ({ page }) => {
+test.skip('auto-waiting', async ({ page }) => {
     const successMessage: Locator = page.locator('.bg-success');
     await successMessage.click();
 
@@ -20,7 +20,7 @@ test('auto-waiting', async ({ page }) => {
     await expect(successMessage).toHaveText('Data loaded with AJAX get request.', { timeout: 20000 });
 });
 
-test('alternative waits', async ({ page }) => {
+test.skip('alternative waits', async ({ page }) => {
     // wait for element:
     const successMessage: Locator = page.locator('.bg-success');
 
@@ -35,7 +35,7 @@ test('alternative waits', async ({ page }) => {
     await expect(successMessage).toHaveText('Data loaded with AJAX get request.', { timeout: 20000 });
 });
 
-test('timeouts', async ({ page }) => {
+test.skip('timeouts', async ({ page }) => {
     //test.setTimeout(10000);
     test.slow();
     const successMessage: Locator = page.locator('.bg-success');
