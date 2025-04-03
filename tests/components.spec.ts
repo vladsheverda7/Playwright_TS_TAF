@@ -1,22 +1,29 @@
 import { expect, Locator, test } from '@playwright/test';
 
+test.describe.configure({ mode: 'parallel' });
+
 test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:4200/');
 });
 
-test.describe('Form Layout page', () => {
+test.describe.parallel('Form Layout page', () => {
+    //test.describe.configure({ retries: 2 });
+
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click();
         await page.getByText('Form Layouts').click();
     });
 
-    test('input fields', async ({ page }) => {
+    test('input fields', async ({ page }, testinfo) => {
+        if (testinfo.retry) {
+            // do something
+        }
         const usingGridNbCard: Locator = page.locator('nb-card').filter({ hasText: 'Using the Grid' });
         const emailField: Locator = usingGridNbCard.getByRole('textbox', { name: 'Email' });
 
         await emailField.fill('test@gmail.com');
         await emailField.clear();
-        await emailField.pressSequentially('test2@gmail.com', { delay: 500 });
+        await emailField.pressSequentially('test2@gmail.com');
 
         // generic assertion
 
