@@ -4,13 +4,18 @@ test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:4200/');
 });
 
-test.describe('Form Layout page', () => {
+test.describe.only('Form Layout page', () => {
+    test.describe.configure({ retries: 2 });
+
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click();
         await page.getByText('Form Layouts').click();
     });
 
-    test('input fields', async ({ page }) => {
+    test('input fields', async ({ page }, testinfo) => {
+        if (testinfo.retry) {
+            // do something
+        }
         const usingGridNbCard: Locator = page.locator('nb-card').filter({ hasText: 'Using the Grid' });
         const emailField: Locator = usingGridNbCard.getByRole('textbox', { name: 'Email' });
 
@@ -21,10 +26,10 @@ test.describe('Form Layout page', () => {
         // generic assertion
 
         const inputValue: string | null = await emailField.inputValue();
-        expect(inputValue).toEqual('test2@gmail.com');
+        expect(inputValue).toEqual('test2@gmail.com1');
 
         // locator asserion
-        await expect(emailField).toHaveValue('test2@gmail.com');
+        await expect(emailField).toHaveValue('test2@gmai1.com');
     });
 
     test('radio buttons', async ({ page }) => {
