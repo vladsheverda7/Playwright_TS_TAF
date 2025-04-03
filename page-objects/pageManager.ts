@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Page } from 'playwright/test';
 import { NavigationPage } from '../page-objects/navigationPage';
 import { FormLayoutPage } from '../page-objects/formLayoutsPage';
 import { DataPickerPage } from '../page-objects/dataPickerPage';
