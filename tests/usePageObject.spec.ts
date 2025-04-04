@@ -27,7 +27,11 @@ test('parametrized methods', async ({ page }) => {
 
     await pageManager.navigateTo().openFormLayoutsPage();
     await pageManager.onFormLayoutPage().submitUsingTheGridFormWithCredsAndSelectOption(randonEmail, '12345678', 'Option 2');
+    await page.screenshot({ path: 'screenshots/formsLayoutsPage.png' });
+    const buffer = await page.screenshot();
+    // console.log(buffer.toString('base64'));
     await pageManager.onFormLayoutPage().submitInlineForm(randomFullName, randonEmail, true);
+    await page.locator('nb-card').filter({ hasText: 'Inline form' }).screenshot({ path: 'screenshots/inlineForm.png' });
     await pageManager.navigateTo().openDatePickerPage();
     await pageManager.onDataPickerPage().selectCommomDatePickerDateFromToday(3);
     await pageManager.onDataPickerPage().selectDatePickerWithRangeFromToday(4, 5);
