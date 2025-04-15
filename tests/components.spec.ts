@@ -3,7 +3,7 @@ import { expect, Locator, test } from '@playwright/test';
 test.describe.configure({ mode: 'parallel' });
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 });
 
 test.describe.parallel('Form Layout page', () => {
@@ -85,7 +85,7 @@ test.describe('Checkboxes', () => {
 
 test.describe('Lists and dropdowns', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
     });
 
     test('Lists and dropdowns', async ({ page }) => {
@@ -122,7 +122,7 @@ test.describe('Lists and dropdowns', () => {
 
 test.describe('Tooltips', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
         await page.getByText('Modal & Overlays').click();
         await page.getByText('Tooltip').click();
     });
@@ -142,7 +142,7 @@ test.describe('Tooltips', () => {
 
 test.describe('Dialog boxes', () => {
     test('Common dialog box', async ({ page }) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
         await page.locator('a[title="Modal & Overlays"]').click();
         await page.getByText('Dialog').click();
 
@@ -160,7 +160,7 @@ test.describe('Dialog boxes', () => {
     });
 
     test('Browser dialog box', async ({ page }) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
         await page.getByText('Tables & Data').click();
         await page.getByText('Smart Table').click();
 
@@ -177,7 +177,7 @@ test.describe('Dialog boxes', () => {
 
 test.describe('Web tables', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
         await page.getByText('Tables & Data').click();
         await page.getByText('Smart Table').click();
     });
@@ -236,7 +236,7 @@ test.describe('Web tables', () => {
 
 test.describe('Datapicker', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
         await page.getByText('Forms').click();
         await page.getByText('Datepicker').click();
     });
@@ -281,7 +281,7 @@ test.describe('Datapicker', () => {
 });
 
 test('Slider', async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 
     //update slider attribute
 

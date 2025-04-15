@@ -1,12 +1,15 @@
 import { test, Locator, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }, testInfo) => {
-    await page.goto('http://uitestingplayground.com/ajax');
+    if (!process.env.URL) {
+        throw new Error('Environment variable URL is not defined');
+    }
+    await page.goto(process.env.URL);
     await page.getByRole('button', { name: 'Button Triggering AJAX Request' }).click();
     testInfo.setTimeout(testInfo.timeout + 2000);
 });
 
-test.skip('auto-waiting', async ({ page }) => {
+test('auto-waiting', async ({ page }) => {
     const successMessage: Locator = page.locator('.bg-success');
     await successMessage.click();
 
@@ -20,7 +23,7 @@ test.skip('auto-waiting', async ({ page }) => {
     await expect(successMessage).toHaveText('Data loaded with AJAX get request.', { timeout: 20000 });
 });
 
-test.skip('alternative waits', async ({ page }) => {
+test('alternative waits', async ({ page }) => {
     // wait for element:
     const successMessage: Locator = page.locator('.bg-success');
 
@@ -35,7 +38,7 @@ test.skip('alternative waits', async ({ page }) => {
     await expect(successMessage).toHaveText('Data loaded with AJAX get request.', { timeout: 20000 });
 });
 
-test.skip('timeouts', async ({ page }) => {
+test('timeouts', async ({ page }) => {
     //test.setTimeout(10000);
     test.slow();
     const successMessage: Locator = page.locator('.bg-success');
