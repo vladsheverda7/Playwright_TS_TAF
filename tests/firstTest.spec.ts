@@ -168,7 +168,7 @@ test('assertions', async ({ page }) => {
 
 // test.describe('suite 1', () => {
 //     test.beforeEach(async ({ page }) => {
-//         await page.goto('http://localhost:4200/');
+//         await page.goto('/');
 //         await page.getByText('Forms').click();
 //         console.log('before each1');
 //     });
