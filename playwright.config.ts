@@ -35,7 +35,7 @@ export default defineConfig<TestOptions>({
         //baseURL: 'http://localhost:4200/',
         globalQAURL: 'https://www.globalsqa.com/demo-site/draganddrop/',
         baseURL:
-            process.env.DEV === '1' ? 'http://localhost:4200/' : process.env.STAGING == '1' ? 'http://localhost:4202/' : 'http://localhost:4201/',
+            process.env.DEV === '1' ? 'http://localhost:4200/' : process.env.STAGING == '1' ? 'http://localhost:4202/' : 'http://localhost:4200/',
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on',
@@ -52,11 +52,11 @@ export default defineConfig<TestOptions>({
 
     /* Configure projects for major browsers */
     projects: [
-        {
-            name: 'dev',
-            use: { ...devices['Desktop Chrome'], baseURL: 'http://localhost:4201/' },
-            fullyParallel: true,
-        },
+        // {
+        //     name: 'dev',
+        //     use: { ...devices['Desktop Chrome'], baseURL: 'http://localhost:4201/' },
+        //     fullyParallel: true,
+        // },
         {
             name: 'staging',
             use: { ...devices['Desktop Chrome'], baseURL: 'http://localhost:4202/' },
