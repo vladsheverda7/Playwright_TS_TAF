@@ -9,7 +9,8 @@
         "dotenv": "^16.4.7"
     },
     "scripts": {
-        "pageObjects-chrome": "DEV=1 npx playwright test usePageObject.spec.ts --project=chromium",
+        "pageObjects-chrome:DEV": "DEV=1 npx playwright test usePageObject.spec.ts --project=chromium",
+        "pageObjects-chrome:default": "npx playwright test usePageObject.spec.ts --project=chromium",
         "auto-waiting": "URL=http://uitestingplayground.com/ajax npx playwright test auto-waiting.spec.ts --project=chromium",
         "pageObjects-chrome-dev": "npx playwright test usePageObject.spec.ts --project=dev",
         "pageObjects-chrome-headed": "npx playwright test usePageObject.spec.ts --project=chromium --headed ",
