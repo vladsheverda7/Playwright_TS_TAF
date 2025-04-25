@@ -16,6 +16,7 @@
         "pageObjects-chrome-headed": "npx playwright test usePageObject.spec.ts --project=chromium --headed ",
         "pageObjects-safari": "npx playwright test usePageObject.spec.ts --project=webkit",
         "pageObjects-all-sequence": "npn run pageObjects-chrome && npn run pageObjects-safari",
-        "pageObjects-all-parallel": "npn run pageObjects-chrome && npn run pageObjects-safari"
+        "pageObjects-all-parallel": "npn run pageObjects-chrome && npn run pageObjects-safari",
+        "pageObjects-chrome-fixtures": "DEV=1 npx playwright test testWithFixtures.spec.ts --project=chromium --headed"
     }
 }
